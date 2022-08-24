@@ -22,6 +22,13 @@
 
 ---
 
+# Prerequisites
+
+* You have built basic web pages or backends with JavaScript
+* You have `npm` and `node` installed
+
+---
+
 # Agenda
 
 * [ ] Project Setup
@@ -37,6 +44,7 @@
 * [ ] [Type Annotations](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html)
 * [ ] [Inferred Types](https://www.typescriptlang.org/docs/handbook/type-inference.html#handbook-content)
 * [ ] [Union Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#union-types)
+* [ ] Type
 * [ ] Objects and Interfaces
   * [ ] [Optional Properties](https://www.typescriptlang.org/docs/handbook/2/objects.html#optional-properties)
   * ["duck typing" or "structural typing"](https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html#structural-type-system)
