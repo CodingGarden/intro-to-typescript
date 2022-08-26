@@ -22,6 +22,13 @@
 
 ---
 
+# Prerequisites
+
+* You have built basic web pages or backends with JavaScript
+* You have `npm` and `node` installed
+
+---
+
 # Agenda
 
 * [ ] Project Setup
