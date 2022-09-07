@@ -1,0 +1,36 @@
+version: '3.1'
+services:
+  mongo:
+    image: mongo
+    restart: always
+    volumes:
+      - ./db-data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_DBNAME}
+  api:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.dev
+    restart: on-failure
+    depends_on:
+      - mongo
+    volumes:
+      - ./:/usr/src/app:cached
+      - npm_cache:/root/.npm:delegated
+      - node_modules:/usr/src/app/node_modules:delegated
+    ports:
+      - ${PORT}:${PORT}
+    environment:
+      PORT: ${PORT}
+      NODE_ENV: ${NODE_ENV}
+      MONGO_HOST: ${MONGO_HOST}
+      MONGO_USERNAME: ${MONGO_USERNAME}
+      MONGO_PASSWORD: ${MONGO_PASSWORD}
+      MONGO_PORT: ${MONGO_PORT}
+      MONGO_DBNAME: ${MONGO_DBNAME}
+
+volumes:
+  npm_cache:
+  node_modules:
