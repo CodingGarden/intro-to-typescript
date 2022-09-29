@@ -2,31 +2,41 @@
 import { useQuery } from 'vue-query';
 import { findAll, type APIError } from '@/lib/API';
 import type { TodoWithId } from '@/types';
+import TodoForm from '@/components/TodoForm.vue';
+import TodoItem from '@/components/TodoItem.vue';
+import LinearLoading from '../components/LinearLoading.vue';
 
-const {
-  isLoading,
-  error,
-  data,
-} = useQuery<TodoWithId[], APIError>('findAll', () => findAll());
+const { isFetching, error, data } = useQuery<TodoWithId[], APIError>(
+  'findAll',
+  findAll,
+  {
+    select(todos) {
+      return todos.slice().reverse();
+    },
+  },
+);
 </script>
 
 <template>
   <div>
-    <div v-if="isLoading" class="q-pa-md flex flex-center">
-      <q-circular-progress
-        indeterminate
-        size="50px"
-      />
-    </div>
     <q-banner v-if="error" inline-actions class="text-white bg-red">
       {{ error.response?.data?.message || error.message }}
     </q-banner>
+    <todo-form />
+    <linear-loading :is-loading="isFetching" />
     <div v-if="data">
-      <q-card v-for="todo in data" :key="todo._id.toString()">
-        <q-card-section>
-          {{ todo.content }}
-        </q-card-section>
-      </q-card>
+      <todo-item v-for="todo in data" :key="todo._id.toString()" :todo="todo" class="q-mb-sm">
+        <slot>
+          <q-card-actions class="row justify-end">
+            <q-btn
+              :to="{ name: 'todo', params: { id: todo._id.toString() } }"
+              color="primary"
+            >
+              Edit
+            </q-btn>
+          </q-card-actions>
+        </slot>
+      </todo-item>
     </div>
   </div>
 </template>

@@ -7,6 +7,7 @@ useQueryProvider({
   defaultOptions: {
     queries: {
       retry: 0,
+      refetchOnWindowFocus: false,
     },
   },
 });
@@ -23,7 +24,9 @@ queryList.addEventListener('change', (event) => {
 <template>
   <q-toolbar class="bg-black text-white">
     <q-toolbar-title>
-      Vue CRUD Client
+      <q-btn :to="{ name: 'home' }">
+        Vue CRUD Client
+      </q-btn>
     </q-toolbar-title>
   </q-toolbar>
   <q-layout>
